@@ -37,9 +37,8 @@ Warning: You will be graded on your output, so do not include any print statemen
 
 #include <stdio.h>
 
-void convert(double, char);
-void whichCase(char);
-
+double compute(double, double);
+void whichCase(double, char);
 
 int main () {
     int times;
@@ -49,48 +48,33 @@ int main () {
     scanf("%d", &times);
     for (int i=0; i<times; i++) {
         scanf("%lf %c", &num, &ch);
-        convert(num, ch);
+        whichCase(num, ch);
     }
     return 0;
 }
 
-void convert(double num, char ch) {
+
+void whichCase(double num, char ch) {
     double factor;
-     switch (ch) {
-        case 'm':
-            factor = 3.2808;
-            break;
-        case 'g':
-         factor = 0.002205;
-            break;
-        case 'c':
-            num = (32.0 + (1.8 * num));
-            break;
-        default:
-            printf("Error\n");
-    }
-
-    if (ch != 'c') {
-        num = num * factor;
-    }
-    whichCase(ch);
-    printf("%lf", num);
-    whichCase(ch);
-}
-
-void whichCase(char ch) {
     switch (ch) {
         case 'm':
-            printf(" ft\n");
+            factor = 3.2808;
+            num = compute(num, factor);
+            printf("%.6lf ft\n", num);
             break;
         case 'g':
-            printf(" lbs\n");
+            factor = 0.002205;
+            num = compute(num, factor);
+            printf("%.6lf lbs\n", num);
             break;
         case 'c':
-            printf(" f\n");
+        num = (32.0 + (1.8 * num));
+            printf("%.6lf f\n", num);
             break;
-        default:
-            printf("Error\n");
     }
+    
 }
-
+double compute (double num, double fac) {
+    num = num*fac;
+    return num;
+}
